@@ -43,7 +43,9 @@ class HadithFragment : Fragment() {
         arguments?.let {
             hadithRecyclerAdapter = HadithRecyclerAdapter()
             hadithRecyclerAdapter.itemClickListener = { view, item, position ->
-
+                val action =
+                    HadithFragmentDirections.actionHadithFragmentToHadithDetailsFragment(item)
+                findNavController().navigate(action)
             }
             fragmentHadithBinding.hadithRecyclerView.apply {
                 setHasFixedSize(true)
