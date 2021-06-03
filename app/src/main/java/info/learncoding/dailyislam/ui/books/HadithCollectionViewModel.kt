@@ -2,6 +2,7 @@ package info.learncoding.dailyislam.ui.books
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,13 +16,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HadithCollectionViewModel @Inject constructor(private val hadithRepo: HadithRepositoryImp) : ViewModel() {
+class HadithCollectionViewModel @Inject constructor(private val hadithRepo: HadithRepositoryImp) :
+    ViewModel() {
     companion object {
         private const val TAG = "BookViewModel"
     }
 
-    fun fetchCollections(): LiveData<DataState<List<HadithCollection>>> {
-        return object :
+    private val _collections = MediatorLiveData<DataState<List<HadithCollection>>>()
+    val collections: LiveData<DataState<List<HadithCollection>>> get() = _collections
+    fun fetchCollections() {
+        val result = object :
             NetworkResourceBounce<List<HadithCollection>, List<HadithCollection>>(viewModelScope) {
             override fun apiCallFailed(error: ApiError) {
                 Log.d(TAG, "apiCallFailed: $error")
@@ -44,5 +48,7 @@ class HadithCollectionViewModel @Inject constructor(private val hadithRepo: Hadi
             }
 
         }.asLiveData()
+
+        _collections.addSource(result, _collections::postValue)
     }
 }

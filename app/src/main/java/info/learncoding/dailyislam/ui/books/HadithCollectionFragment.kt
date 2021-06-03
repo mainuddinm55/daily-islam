@@ -51,7 +51,13 @@ open class HadithCollectionFragment : Fragment() {
             adapter = hadithCollectionRecyclerAdapter
             addItemDecoration(RecyclerViewOuterPaddingDecoration(10, 10, 10, 10))
         }
-        viewModel.fetchCollections().observe(viewLifecycleOwner, {
+        subscribeCollectionObserver()
+        viewModel.fetchCollections()
+
+    }
+
+    private fun subscribeCollectionObserver() {
+        viewModel.collections.observe(viewLifecycleOwner, {
             Log.d(TAG, "onViewCreated: $it")
             when (it) {
                 is DataState.Loading -> {

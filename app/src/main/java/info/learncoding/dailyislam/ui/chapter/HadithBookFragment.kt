@@ -59,6 +59,7 @@ class HadithBookFragment : Fragment() {
 
             args.hadithCollection?.let { collection ->
                 subscribeHadithBooksObserver(collection)
+                viewModel.fetchHadithBooks(collection.name)
             } ?: run {
                 Toast.makeText(context, getText(R.string.please_select_a_book), Toast.LENGTH_SHORT)
                     .show()
@@ -69,7 +70,7 @@ class HadithBookFragment : Fragment() {
     }
 
     private fun subscribeHadithBooksObserver(collection: HadithCollection) {
-        viewModel.fetchHadithBooks(collection.name).observe(viewLifecycleOwner, {
+        viewModel.books.observe(viewLifecycleOwner, {
             when (it) {
                 is DataState.Loading -> {
                     showProgress(true)
@@ -105,7 +106,7 @@ class HadithBookFragment : Fragment() {
 
     private fun showError(error: ApiError, collection: HadithCollection) {
         showError(chapterFragmentBinding.errorLayout, error) {
-            subscribeHadithBooksObserver(collection)
+            viewModel.fetchHadithBooks(collection.name)
         }
     }
 
