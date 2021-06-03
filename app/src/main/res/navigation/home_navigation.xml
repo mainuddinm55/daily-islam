@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/book_fragment">
+
+    <fragment
+        android:id="@+id/book_fragment"
+        android:name="info.learncoding.dailyislam.ui.books.HadithCollectionFragment"
+        android:label="Books"
+        tools:layout="@layout/hadith_collection_fragment">
+        <action
+            android:id="@+id/action_book_fragment_to_chapter_fragment"
+            app:destination="@id/chapter_fragment">
+
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/chapter_fragment"
+        android:name="info.learncoding.dailyislam.ui.chapter.HadithBookFragment"
+        android:label="Chapters"
+        tools:layout="@layout/hadith_book_fragment">
+        <argument
+            android:name="hadithCollection"
+            android:defaultValue="@null"
+            app:argType="info.learncoding.dailyislam.data.model.HadithCollection"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_chapter_fragment_to_hadith_fragment"
+            app:destination="@id/hadith_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hadith_fragment"
+        android:name="info.learncoding.dailyislam.ui.hadith.HadithFragment"
+        android:label="Hadiths"
+        tools:layout="@layout/hadith_fragment">
+        <argument
+            android:name="hadithCollection"
+            android:defaultValue="@null"
+            app:argType="info.learncoding.dailyislam.data.model.HadithCollection"
+            app:nullable="true" />
+        <argument
+            android:name="hadithBook"
+            android:defaultValue="@null"
+            app:argType="info.learncoding.dailyislam.data.model.HadithBook"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_hadith_fragment_to_hadith_details_fragment"
+            app:destination="@id/hadith_details_fragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/hadith_details_fragment"
+        android:name="info.learncoding.dailyislam.ui.hadith_details.HadithDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/hadith_details_fragment">
+        <argument
+            android:name="hadithBook"
+            android:defaultValue="@null"
+            app:argType="info.learncoding.dailyislam.data.model.Hadith"
+            app:nullable="true" />
+
+    </fragment>
+</navigation>

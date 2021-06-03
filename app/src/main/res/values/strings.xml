@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DailyIslam</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="try_again">Try Again</string>
+    <string name="total_number_of_hadith">Total num of hadith - %s</string>
+    <string name="please_select_a_book">Please select a book</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="translate">Translate</string>
+</resources>
